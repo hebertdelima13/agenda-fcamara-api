@@ -1,0 +1,6 @@
+users 
+- _id
+- name
+- email
+- passwordHash
+- token
