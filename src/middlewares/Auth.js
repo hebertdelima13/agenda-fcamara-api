@@ -14,8 +14,8 @@ module.exports = {
             token = req.query.token;
         }
 
-        if(req.query.body) {
-            token = req.query.body;
+        if(req.body.token) {
+            token = req.body.token;
         }
 
         if(token == '') {
