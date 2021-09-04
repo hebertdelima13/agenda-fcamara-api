@@ -3,6 +3,8 @@ const router = express.Router();
 
 const Auth = require('./middlewares/Auth');
 
+const AuthValidator = require('./validators/AuthValidator');
+
 const AuthController = require('./controllers/AuthController');
 const UserController = require('./controllers/UserController');
 
@@ -13,7 +15,7 @@ router.get('/ping', (req, res) => {
 // Processo autenticação usuário
 
 router.post('/user/signin', AuthController.signin);
-router.post('/user/signup', AuthController.signup);
+router.post('/user/signup', AuthValidator.signup, AuthController.signup);
 
 // Informações do usuário
 
