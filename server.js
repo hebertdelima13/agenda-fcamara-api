@@ -27,6 +27,4 @@ server.use(express.static(__dirname+'/public'));
 
 server.use('/', apiRoutes);
 
-server.listen(process.env.PORT, () => {
-    console.log(`- Rodando no endereço: ${process.env.BASE}`);
-});
+server.listen(process.env.PORT || 5000);
