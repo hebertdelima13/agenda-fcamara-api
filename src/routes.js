@@ -9,9 +9,6 @@ const UserValidator = require('./validators/UserValidator');
 const AuthController = require('./controllers/AuthController');
 const UserController = require('./controllers/UserController');
 
-router.get('/ping', (req, res) => {
-    res.json({pong: true});
-});
 
 // Processo autenticação usuário
 
