@@ -10,7 +10,7 @@ module.exports = {
         const errors = validationResult(req);
 
         if(!errors.isEmpty()) {
-            res.json({error: errors.mapped()});
+            res.json({error: errors.isEmpty()});
             return;
         }
 
@@ -21,7 +21,7 @@ module.exports = {
         const user = await User.findOne({email: data.email});
 
         if(!user) {
-            res.json({error: 'E-mail  e/ou senha errados!'});
+            res.json({error: errors.isEmpty()});
             return;
         }
 
@@ -30,7 +30,7 @@ module.exports = {
         const match = await bcrypt.compare(data.password, user.passwordHash);
 
         if(!match) {
-            res.json({error: 'E-mail  e/ou senha errados!'});
+            res.json({error: errors.isEmpty()});
             return;
         }
 
@@ -48,7 +48,7 @@ module.exports = {
         const errors = validationResult(req);
 
         if(!errors.isEmpty()) {
-            res.json({error: errors.mapped()});
+            res.json({error: errors.isEmpty()});
             return;
         }
 
@@ -61,9 +61,7 @@ module.exports = {
         });
 
         if (user) {
-            res.json({ 
-                error: {email:{msg: 'E-mail já existe!'}}
-            });
+            res.json({error: errors.isEmpty()});
             return;
         }
 
