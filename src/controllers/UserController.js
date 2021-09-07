@@ -21,7 +21,7 @@ module.exports = {
         const errors = validationResult(req);
 
         if(!errors.isEmpty()) {
-            return res.status(300).json({error: 'Dados inválidos!'});
+            return res.status(200).json({error: '300', msg: 'Dados inválido!'});
         }
 
         const data = matchedData(req);        
@@ -36,7 +36,7 @@ module.exports = {
             const emailCheck = await User.findOne({email: data.email});
 
             if(emailCheck) {
-                return res.status(303).json({error: 'E-mail já existe!'});
+                return res.status(200).json({error: '303', msg: 'E-mail já existe!'});
             }
 
             updates.email = data.email;
