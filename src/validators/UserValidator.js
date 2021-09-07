@@ -25,7 +25,7 @@ module.exports = {
         password: {
             optional: true,
             isLength: {
-                options: { min: 2 }
+                options: { min: 6 }
             },
             errorMessage: 'Senha precisa ter pelo menos 2 caracteres!'
         }
