@@ -21,7 +21,7 @@ module.exports = {
         const errors = validationResult(req);
 
         if(!errors.isEmpty()) {
-            res.json({error: errors.mapped()});
+            res.json({error: errors.isEmpty()});
             return;
         }
 
@@ -37,7 +37,7 @@ module.exports = {
             const emailCheck = await User.findOne({email: data.email});
 
             if(emailCheck) {
-                res.json({error: 'E-mail já existente!'});
+                res.json({error: errors.isEmpty()});
                 return;
             }
 
