@@ -1,8 +1,7 @@
 const Unit = require('../models/Unit');
 
-
 module.exports = {
-    add: async (req, res) => {
+    create: async (req, res) => {
 
         try{
             const { name, capacity, released } = req.body;
@@ -18,12 +17,10 @@ module.exports = {
         }
     },
 
-    list: async (req, res) => {
+    read: async (req, res) => {
         try{
-            const units = await Unit.find();  //.populate(['user','tasks']);
-            const count = await Unit.find().count();
-        //       console.log('contagem=',count);
-        
+            const units = await Unit.find();  
+
             return res.send({units});
         
         }catch{
@@ -36,8 +33,7 @@ module.exports = {
             const { name, capacity, released } = req.body;
             
             const unit = await Unit.findByIdAndUpdate(req.params.unitId, { name, capacity, released}, { new: true});
-            
-    
+
             await unit.save();
     
             return res.send({ unit });
@@ -46,6 +42,17 @@ module.exports = {
             return res.status(400).send({error: 'Failed updating unit'});
         }
     },
+    
+    delete: async (req, res) => {
+        try{
+            await Unit.findByIdAndRemove(req.params.unitId);
+    
+            return res.send();
+    
+        }catch{
+            return res.status(400).send({error: 'Failed deleting unit'});
+        }
+    }
 
 };
 
