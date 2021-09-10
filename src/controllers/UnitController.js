@@ -47,7 +47,7 @@ module.exports = {
         try{
             await Unit.findByIdAndRemove(req.params.unitId);
     
-            return res.send();
+            return res.send({message: 'Successfully deleted'});
     
         }catch{
             return res.status(400).send({error: 'Failed deleting unit'});

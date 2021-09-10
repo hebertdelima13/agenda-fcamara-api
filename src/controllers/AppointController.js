@@ -60,7 +60,7 @@ module.exports = {
         try{
             await Appoint.findByIdAndRemove(req.params.appointId);
 
-            return res.send({message: 'Successfully deleted'})
+            return res.send({message: 'Successfully deleted'});
     
         }catch{
             return res.status(400).send({error: 'Failed deleting appointment'});
