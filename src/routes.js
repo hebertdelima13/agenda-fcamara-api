@@ -15,6 +15,7 @@ const UnitController = require('./controllers/UnitController');
 //Processo de adicionar unidades
 router.post('/unit', UnitController.add);
 router.get('/unit', UnitController.list);
+router.put('/unit/:unitId', UnitController.update);
 
 
 // Processo autenticação usuário

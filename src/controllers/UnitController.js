@@ -31,5 +31,21 @@ module.exports = {
         }
     },
 
+    update: async (req, res) => {
+        try{
+            const { name, capacity, released } = req.body;
+            
+            const unit = await Unit.findByIdAndUpdate(req.params.unitId, { name, capacity, released}, { new: true});
+            
+    
+            await unit.save();
+    
+            return res.send({ unit });
+    
+        }catch{
+            return res.status(400).send({error: 'Failed updating unit'});
+        }
+    },
+
 };
 
