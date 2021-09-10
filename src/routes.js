@@ -9,8 +9,6 @@ const UserValidator = require('./validators/UserValidator');
 const AuthController = require('./controllers/AuthController');
 const UserController = require('./controllers/UserController');
 
-const AddController = require('./controllers/AddController');
-
 const UnitController = require('./controllers/UnitController');
 
 
