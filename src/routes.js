@@ -23,9 +23,6 @@ router.post('/unit', UnitController.add);
 router.post('/user/signin', AuthValidator.signin, AuthController.signin);
 router.post('/user/signup', AuthValidator.signup, AuthController.signup);
 
-// Adicionar agendamento
-router.post('/agendamento', AddController.insert);
-
 // Informações do usuário
 
 router.get ('/user/me', Auth.private, UserController.info);
