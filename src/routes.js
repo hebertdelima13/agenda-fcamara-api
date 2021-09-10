@@ -11,6 +11,12 @@ const UserController = require('./controllers/UserController');
 
 const AddController = require('./controllers/AddController');
 
+const UnitController = require('./controllers/UnitController');
+
+
+//Processo de adicionar unidades
+router.post('/unit', UnitController.add);
+
 
 // Processo autenticação usuário
 
