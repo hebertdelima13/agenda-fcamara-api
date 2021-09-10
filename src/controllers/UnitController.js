@@ -16,5 +16,20 @@ module.exports = {
         }catch{
             return res.status(400).send({error: 'Failed creating new unit'});
         }
-    },    
+    },
+
+    list: async (req, res) => {
+        try{
+            const units = await Unit.find();  //.populate(['user','tasks']);
+            const count = await Unit.find().count();
+        //       console.log('contagem=',count);
+        
+            return res.send({units});
+        
+        }catch{
+            return res.status(400).send({error: 'Failed loading units'});
+        }
+    },
+
 };
+
