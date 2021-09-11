@@ -1,0 +1,306 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API - Sistema de agendamento Fcamara",
+        "description": "API para agendamento de estação de trabalho na Fcamara",
+        "contact": 
+        {
+            "name": "Github do projeto" ,
+            "url": "https://github.com/hebertdelima13"
+        },
+        "version": "1.0.0"          
+    },
+    
+    "servers": [
+        {
+            "url": "http://localhost:5000/",
+            "description": "API de test"
+        }
+    ],
+
+    "paths": {
+        "/user/signup" :{
+            "post": {
+                "summary": "Cadastro de usuários",
+                "description": "Essa rota será responsável por cadastrar usuários",
+                "tags": ["User"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserSignup"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "name": "John Smith",
+                                        "email": "johnsmith@host.com",
+                                        "password": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses" :{
+                    "400": {
+                        "description": "Dados inválidos"
+                    },
+                    "401": {
+                        "description": "E-mail já existe!"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/UserSignup"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/signin": {
+            "post": {
+                "summary": "Login de usuários",
+                "description": "Essa rota será responsável por logar usuários",
+                "tags": ["User"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserSignin"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "email": "johnsmith@host.com",
+                                        "password": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses" :{
+                    "400": {
+                        "description": "Dados inválidos"
+                    },
+                    "401": {
+                        "description": "E-mail ou senha inválido!"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/UserSignin"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },        
+        "/unit": {
+            "post": {
+                "summary": "Cria unidade Fcamara",
+                "description": "Essa rota será responsável por criar as unidades da Fcamara",
+                "tags": ["Unit"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Unit"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "name": "Rio de Janeiro",
+                                        "capacity": "100",
+                                        "released": "40"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses" :{
+                    "400": {
+                        "description": "Failed creating new unit"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Unit"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Lista unidades Fcamara",
+                "description": "Essa rota será responsável por listar as unidades da Fcamara",
+                "tags": ["Unit"],                
+                "responses" :{
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Unitget"
+                                }
+                            }
+                        }
+                    }
+                }
+            }            
+        },
+        "/unit/{unitId}": {            
+            "put": {
+                "summary": "Atualiza as unidades Fcamara",
+                "description": "Essa rota será responsável por atualizar as unidades da Fcamara",
+                "tags": ["Unit"],   
+                "parameters": [{
+                    "name": "unitId",
+                    "in": "path",
+                    "description": "Atualiza unidade pelo Id",
+                    "required": true
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Unit"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "name": "Rio de Janeiro",
+                                        "capacity": "100",
+                                        "released": "30"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },             
+                "responses" :{
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Unitget"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleta as unidades Fcamara",
+                "description": "Essa rota será responsável por deletar as unidades da Fcamara",
+                "tags": ["Unit"],   
+                "parameters": [{
+                    "name": "unitId",
+                    "in": "path",
+                    "description": "Deleta unidade pelo Id",
+                    "required": true
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Unit"
+                            }
+                        }
+                    }
+                },             
+                "responses" :{
+                    "200": {
+                        "description": "Successfully deleted"
+                    }
+                }
+            }                        
+        }        
+    },
+
+    "components": {
+        "schemas": {
+            "UserSignin": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserSignup": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Unit": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "capacity": {
+                        "type": "number"
+                    },
+                    "released": {
+                        "type": "number"
+                    }
+                }
+            },
+            "Unitget": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "capacity": {
+                        "type": "number"
+                    },
+                    "released": {
+                        "type": "number"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "__v": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+     
+}
