@@ -12,14 +12,21 @@ module.exports = {
             const r = await Unit.findOne({name: unit});
             const released = r.released;
             const user = await User.findOne({token: authHeader});
-                                
-            if(count < released){
-                const appoint = await Appoint.create({ unit, ap_date, user: user._id});
-    
-                return res.send({ appoint });
-            }else{
-                return res.status(400).send({error: 'No schedule available'});
+            const sch = await Appoint.findOne({ap_date:ap_date, user: user._id});
+            if(!sch && user){
+                //console.log('disponivel');
+                if(count < released){
+                    const appoint = await Appoint.create({ unit, ap_date, user: user._id});
+        
+                    return res.send({ appoint });
+                  //  return res.send({ message:'OK' });
+                }else{
+                    return res.status(400).send({error: 'No schedule available'});
+                }
+            }else {
+                return res.status(400).send({error: 'scheduling already made.'});
             }
+                                
         }catch{
             return res.status(400).send({error: 'Failed creating new appointment'});
         }
@@ -31,9 +38,13 @@ module.exports = {
             const authHeader = req.headers.authorization;
             const user = await User.findOne({token: authHeader});
 
-            const appoints = await Appoint.find({unit: unit, user: user._id});
-     
-            return res.send({appoints});
+            if(user){
+                const appoints = await Appoint.find({user: user._id});  //unit: unit, 
+        
+                return res.send({appoints});
+            }else{
+                return res.status(400).send({error: 'Token not provided'});
+            }
     
         }catch{
             return res.status(400).send({error: 'Failed loading appointment'});
@@ -43,13 +54,18 @@ module.exports = {
     update: async (req, res) => {
         try{
             const { unit, ap_date } = req.body;
-           // const authHeader = req.headers.authorization;
+            const authHeader = req.headers.authorization;
+            const user = await User.findOne({token: authHeader});
             
-            const appoint = await Appoint.findByIdAndUpdate(req.params.appointId, { unit, ap_date}, { new: true});
+            if(user){
+                const appoint = await Appoint.findByIdAndUpdate(req.params.appointId, { unit, ap_date}, { new: true});
 
-            await appoint.save();
-    
-            return res.send({ appoint });
+                await appoint.save();
+        
+                return res.send({ appoint });
+            }else{
+                return res.status(400).send({error: 'Token not provided'});
+            }
     
         }catch{
             return res.status(400).send({error: 'Failed updating appointment'});
@@ -58,9 +74,16 @@ module.exports = {
     
     delete: async (req, res) => {
         try{
-            await Appoint.findByIdAndRemove(req.params.appointId);
+            const authHeader = req.headers.authorization;
+            const user = await User.findOne({token: authHeader});
 
-            return res.send({message: 'Successfully deleted'});
+            if(user){
+                await Appoint.findByIdAndRemove(req.params.appointId);
+
+                return res.send({message: 'Successfully deleted'});
+            }else{
+                return res.status(400).send({error: 'Token not provided'});
+            }
     
         }catch{
             return res.status(400).send({error: 'Failed deleting appointment'});

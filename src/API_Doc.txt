@@ -91,9 +91,7 @@ resposta:
 /appoint (GET) - lista os agendamentos do usuario naquela unidade
 entrada:
 ** É preciso enviar o token do usuario no header no parametro Authorization
-{
-    "unit":"São Paulo"
-}
+***Não precisa de nada no corpo da requisição, ele lista todos os agendamentos do usuario.
 resposta:
 {
     "appoints": [
