@@ -8,7 +8,7 @@ module.exports = {
 
         let token = req.headers.token;
 
-        const user = await User.findOne({token}); 
+        const user = await User.findOne({token:token}); 
 
         res.json({
             name: user.name,
