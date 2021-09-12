@@ -19,7 +19,7 @@ router.post('/user/signup', AuthValidator.signup, AuthController.signup);
 
 // Informações do usuário
 
-router.get ('/user/me', Auth.private, UserController.info);
+router.get ('/user/me', UserController.info);
 router.put ('/user/me', UserValidator.editAction, Auth.private, UserController.editAction);
 
 //Processo de adicionar unidades
