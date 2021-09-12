@@ -6,7 +6,7 @@ const User = require('../models/User');
 module.exports = {
     info: async (req, res) => {
 
-        let token = req.query.token;
+        let token = req.headers.token;
 
         const user = await User.findOne({token}); 
 
