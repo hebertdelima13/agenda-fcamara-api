@@ -29,7 +29,7 @@ module.exports = {
             return;
         }
 
-        const user = await User.findOne({token});
+        const user = await User.findOne({token:token});
 
         if(!user) {
             res.json({notallowed: true});
