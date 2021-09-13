@@ -6,7 +6,7 @@ module.exports = {
     create: async (req, res) => {
         try{
             const { unit, ap_date } = req.body;
-            const authHeader = req.headers.authorization;
+            const authHeader = req.headers.token;
                 
             const count = await Appoint.find({unit: unit, ap_date:ap_date}).count();
             const r = await Unit.findOne({name: unit});
@@ -35,7 +35,7 @@ module.exports = {
     read: async (req, res) => {
         try{
             const { unit } = req.body;
-            const authHeader = req.headers.authorization;
+            const authHeader = req.headers.token;
             const user = await User.findOne({token: authHeader});
 
             if(user){
@@ -54,7 +54,7 @@ module.exports = {
     update: async (req, res) => {
         try{
             const { unit, ap_date } = req.body;
-            const authHeader = req.headers.authorization;
+            const authHeader = req.headers.token;
             const user = await User.findOne({token: authHeader});
             
             if(user){
@@ -74,7 +74,7 @@ module.exports = {
     
     delete: async (req, res) => {
         try{
-            const authHeader = req.headers.authorization;
+            const authHeader = req.headers.token;
             const user = await User.findOne({token: authHeader});
 
             if(user){
