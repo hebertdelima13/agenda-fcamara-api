@@ -139,6 +139,13 @@
                 "summary": "Editar o usuário",
                 "description": "Essa rota será responsável por editar o usuário",
                 "tags": ["User"],
+                "security": [],
+                "parameters": [{
+                    "name": "token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -146,7 +153,7 @@
                                 "$ref": "#/components/schemas/UserEdit"
                             },
                             "examples": {
-                                "user": {
+                                "name": {
                                     "value": {
                                         "name": "John Smith"
                                     }
@@ -155,13 +162,6 @@
                         }
                     }
                 },
-                "security": [],
-                "parameters": [{
-                    "name": "token",
-                    "in": "header",
-                    "required": true,
-                    "type": "string"
-                }],
                 "responses" :{
                     "400": {
                         "description": "E-mail já existe!"
