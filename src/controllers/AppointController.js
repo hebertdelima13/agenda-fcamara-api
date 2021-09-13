@@ -24,11 +24,11 @@ module.exports = {
                     return res.status(400).send({error: 'No schedule available'});
                 }
             }else {
-                return res.status(400).send({error: 'scheduling already made.'});
+                return res.status(401).send({error: 'scheduling already made.'});
             }
                                 
         }catch{
-            return res.status(400).send({error: 'Failed creating new appointment'});
+            return res.status(404).send({error: 'Failed creating new appointment'});
         }
     },
 
@@ -43,7 +43,7 @@ module.exports = {
         
                 return res.send({appoints});
             }else{
-                return res.status(400).send({error: 'Token not provided'});
+                return res.status(401).send({error: 'Token not provided'});
             }
     
         }catch{
@@ -64,7 +64,7 @@ module.exports = {
         
                 return res.send({ appoint });
             }else{
-                return res.status(400).send({error: 'Token not provided'});
+                return res.status(401).send({error: 'Token not provided'});
             }
     
         }catch{
@@ -82,7 +82,7 @@ module.exports = {
 
                 return res.send({message: 'Successfully deleted'});
             }else{
-                return res.status(400).send({error: 'Token not provided'});
+                return res.status(401).send({error: 'Token not provided'});
             }
     
         }catch{

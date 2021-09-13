@@ -13,7 +13,7 @@ module.exports = {
         if(user){
             return res.send({name:user.name, email:user.email});
         }else{
-            return res.status(400).send({error: 'Token not provided'});
+            return res.status(401).send({error: 'Token not provided'});
         }        
         
     },
@@ -26,7 +26,7 @@ module.exports = {
         const errors = validationResult(req);
 
         if(!errors.isEmpty()) {
-            return res.status(200).json({error: '300', msg: 'Dados inválido!'});
+            return res.status(400).json({error: '300', msg: 'Dados inválido!'});
         }
 
         if(user){
@@ -42,7 +42,7 @@ module.exports = {
                 const emailCheck = await User.findOne({email: data.email});
 
                 if(emailCheck) {
-                    return res.status(200).json({error: '303', msg: 'E-mail já existe!'});
+                    return res.status(401).json({error: '303', msg: 'E-mail já existe!'});
                 }
 
                 updates.email = data.email;
@@ -73,7 +73,7 @@ module.exports = {
 
                 return res.send({message: 'Successfully deleted'});
             }else{
-                return res.status(400).send({error: 'Token not provided'});
+                return res.status(401).send({error: 'Token not provided'});
             }
     
         }catch{

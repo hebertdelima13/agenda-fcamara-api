@@ -46,7 +46,7 @@
                     "400": {
                         "description": "Dados inválidos"
                     },
-                    "401": {
+                    "409": {
                         "description": "E-mail já existe!"
                     },
                     "200": {
@@ -119,7 +119,7 @@
                     "type": "string"
                 }],
                 "responses" :{
-                    "400": {
+                    "401": {
                         "description": "Token not provided"
                     },
                     "200": {
@@ -163,10 +163,10 @@
                     }
                 },
                 "responses" :{
-                    "400": {
+                    "401": {
                         "description": "E-mail já existe!"
                     },
-                    "401": {
+                    "400": {
                         "description": "Dados inválido!"
                     },
                     "200": {
@@ -186,10 +186,10 @@
                     "type": "string"
                 }],
                 "responses" :{
-                    "400": {
+                    "401": {
                         "description": "Token not provided"
                     },
-                    "401": {
+                    "400": {
                         "description": "Failed deleting user"
                     },
                     "200": {
@@ -229,7 +229,12 @@
                 },
                 "responses" :{
                     "400": {
-                        "description": "Token not provided"
+                        "description": "No schedule available"
+                    },
+                    "401": {
+                        "description": "scheduling already made"
+                    },"404": {
+                        "description": "Failed creating new appointment"
                     },
                     "200": {
                         "description": "OK",
@@ -255,10 +260,10 @@
                     "type": "string"
                 }],                
                 "responses" :{
-                    "400": {
+                    "401": {
                         "description": "Token not provided"
                     },
-                    "401": {
+                    "400": {
                         "description": "Failed loading appointment"
                     },
                     "200": {
@@ -305,10 +310,10 @@
                     }
                 },
                 "responses" :{
-                    "400": {
+                    "401": {
                         "description": "Token not provided"
                     },
-                    "401": {
+                    "400": {
                         "description": "Failed updating appointment"
                     },
                     "200": {
@@ -352,10 +357,10 @@
                     }
                 },             
                 "responses" :{
-                    "400": {
+                    "401": {
                         "description": "Token not provided"
                     },
-                    "401": {
+                    "400": {
                         "description": "Failed deleting appointment"
                     },
                     "200": {
