@@ -23,7 +23,7 @@
             "post": {
                 "summary": "Cadastro de usuários",
                 "description": "Essa rota será responsável por cadastrar usuários",
-                "tags": ["User"],
+                "tags": ["User Sign up"],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -67,7 +67,7 @@
             "post": {
                 "summary": "Login de usuários",
                 "description": "Essa rota será responsável por logar usuários",
-                "tags": ["User"],
+                "tags": ["User Sign in"],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -105,33 +105,22 @@
                     }
                 }
             }
-        },        
-        "/unit": {
-            "post": {
-                "summary": "Cria unidade Fcamara",
-                "description": "Essa rota será responsável por criar as unidades da Fcamara",
-                "tags": ["Unit"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Unit"
-                            },
-                            "examples": {
-                                "user": {
-                                    "value": {
-                                        "name": "Rio de Janeiro",
-                                        "capacity": "100",
-                                        "released": "40"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
+        },
+        "/user/me": {
+            "get": {
+                "summary": "Informações do usuário",
+                "description": "Essa rota será responsável por obter informações do usuário",
+                "tags": ["User"],
+                "security": [],
+                "parameters": [{
+                    "name": "token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],
                 "responses" :{
                     "400": {
-                        "description": "Failed creating new unit"
+                        "description": "Token not provided"
                     },
                     "200": {
                         "description": "OK",
@@ -139,116 +128,18 @@
                             "application/json": {
                                 "schema": {
                                     "type": "object",
-                                    "$ref": "#/components/schemas/Unit"
+                                    "$ref": "#/components/schemas/UserGet"
                                 }
                             }
                         }
                     }
                 }
-            },
-            "get": {
-                "summary": "Lista unidades Fcamara",
-                "description": "Essa rota será responsável por listar as unidades da Fcamara",
-                "tags": ["Unit"],                
-                "responses" :{
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Unitget"
-                                }
-                            }
-                        }
-                    }
-                }
-            }            
-        },
-        "/unit/{unitId}": {            
-            "put": {
-                "summary": "Atualiza as unidades Fcamara",
-                "description": "Essa rota será responsável por atualizar as unidades da Fcamara",
-                "tags": ["Unit"],   
-                "parameters": [{
-                    "name": "unitId",
-                    "in": "path",
-                    "description": "Atualiza unidade pelo Id",
-                    "required": true
-                }],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Unit"
-                            },
-                            "examples": {
-                                "user": {
-                                    "value": {
-                                        "name": "Rio de Janeiro",
-                                        "capacity": "100",
-                                        "released": "30"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },             
-                "responses" :{
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/Unitget"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "summary": "Deleta as unidades Fcamara",
-                "description": "Essa rota será responsável por deletar as unidades da Fcamara",
-                "tags": ["Unit"],   
-                "parameters": [{
-                    "name": "unitId",
-                    "in": "path",
-                    "description": "Deleta unidade pelo Id",
-                    "required": true
-                }],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Unit"
-                            }
-                        }
-                    }
-                },             
-                "responses" :{
-                    "200": {
-                        "description": "Successfully deleted"
-                    }
-                }
-            }                        
+            }
         }        
     },
 
     "components": {
         "schemas": {
-            "UserSignin": {
-                "type": "object",
-                "properties": {
-                    "email": {
-                        "type": "string"
-                    },
-                    "password": {
-                        "type": "string"
-                    }
-                }
-            },
             "UserSignup": {
                 "type": "object",
                 "properties": {
@@ -263,40 +154,25 @@
                     }
                 }
             },
-            "Unit": {
+            "UserSignin": {
                 "type": "object",
                 "properties": {
-                    "name": {
+                    "email": {
                         "type": "string"
                     },
-                    "capacity": {
-                        "type": "number"
-                    },
-                    "released": {
-                        "type": "number"
+                    "password": {
+                        "type": "string"
                     }
                 }
             },
-            "Unitget": {
+            "UserGet": {
                 "type": "object",
                 "properties": {
-                    "_id": {
-                        "type": "string"
-                    },
                     "name": {
                         "type": "string"
                     },
-                    "capacity": {
-                        "type": "number"
-                    },
-                    "released": {
-                        "type": "number"
-                    },
-                    "createdAt": {
+                    "email": {
                         "type": "string"
-                    },
-                    "__v": {
-                        "type": "number"
                     }
                 }
             }

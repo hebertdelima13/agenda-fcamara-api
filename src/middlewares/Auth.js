@@ -6,8 +6,7 @@ module.exports = {
         
 
         if(!req.query.token && !req.body.token && !req.headers.token) {
-            res.json({notallowed: true});
-            return;
+            return res.status(400).send({error: 'Token inválido'});
         }
 
         let token = '';
@@ -25,15 +24,13 @@ module.exports = {
         }
 
         if(token == '') {
-            res.json({notallowed: true});
-            return;
+            return res.status(400).send({error: 'Token inválido'});
         }
 
         const user = await User.findOne({token:token});
 
         if(!user) {
-            res.json({notallowed: true});
-            return;
+            return res.status(400).send({error: 'Token inválido'});
         }
 
         next();

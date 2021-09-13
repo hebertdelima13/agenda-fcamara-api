@@ -10,10 +10,12 @@ module.exports = {
 
         const user = await User.findOne({token:token}); 
 
-        res.json({
-            name: user.name,
-            email: user.email,
-        });
+        if(user){
+            return res.send({name:user.name, email:user.email});
+        }else{
+            return res.status(400).send({error: 'Token not provided'});
+        }        
+        
     },
 
     editAction: async (req, res) => {
