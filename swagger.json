@@ -148,10 +148,7 @@
                             "examples": {
                                 "user": {
                                     "value": {
-                                        "token": "$2b$10$AA/01qQptcqwAppcaBHQ0eEbEmXL7dXpnGqSuzo5Zd5WzYtb9DieW",
-                                        "name": "John Smith",
-                                        "email": "johnsmith@host.com",
-                                        "password": "123456"
+                                        "name": "John Smith"
                                     }
                                 }
                             }
@@ -251,7 +248,6 @@
                 "summary": "Lista os agendamentos do usário",
                 "description": "Essa rota será responsável por listar os agendamentos do usuário",
                 "tags": ["Appoint"],
-                "security": [],
                 "parameters": [{
                     "name": "token",
                     "in": "header",
