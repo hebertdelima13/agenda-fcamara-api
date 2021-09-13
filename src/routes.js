@@ -21,6 +21,7 @@ router.post('/user/signup', AuthValidator.signup, AuthController.signup);
 
 router.get ('/user/me', UserController.info);
 router.put ('/user/me', UserValidator.editAction, Auth.private, UserController.editAction);
+router.delete ('/user/me', UserController.delete);
 
 //Processo de adicionar unidades
 router.post('/unit', UnitController.create);

@@ -17,6 +17,9 @@ module.exports = {
     },
 
     editAction: async (req, res) => {
+        let token = req.headers.authorization;
+
+        const user = await User.findOne({token:token});
 
         const errors = validationResult(req);
 
@@ -24,28 +27,56 @@ module.exports = {
             return res.status(200).json({error: '300', msg: 'Dados inválido!'});
         }
 
-        const data = matchedData(req);        
+        if(user){
+            const data = matchedData(req);        
 
-        let updates = {};
+            let updates = {};
 
-        if(data.name) {
-            updates.name = data.name;
-        }
-
-        if(data.email) {
-            const emailCheck = await User.findOne({email: data.email});
-
-            if(emailCheck) {
-                return res.status(200).json({error: '303', msg: 'E-mail já existe!'});
+            if(data.name) {
+                updates.name = data.name;
             }
 
-            updates.email = data.email;
-        }
+            if(data.email) {
+                const emailCheck = await User.findOne({email: data.email});
 
-        if(data.password) {
-            updates.passwordHash = await bcrypt.hash(data.password, 10);
-        }
+                if(emailCheck) {
+                    return res.status(200).json({error: '303', msg: 'E-mail já existe!'});
+                }
 
-        await User.findOneAndUpdate({token: data.token}, {$set: updates});
+                updates.email = data.email;
+            }
+
+            if(data.password) {
+                updates.passwordHash = await bcrypt.hash(data.password, 10);
+            }
+
+            const nuser = await User.findOneAndUpdate({token: token}, {$set: updates}, { new: true}); //data.token   
+            //const appoint = await Appoint.findByIdAndUpdate(req.params.appointId, { unit, ap_date}, { new: true});
+
+            await nuser.save();
+        
+            return res.send({ nuser });
+
+            //return res.status(200).send({message: 'Dados alterados com sucesso!'});
+        }
+    },
+
+    delete: async (req, res) => {
+        try{
+            const authHeader = req.headers.authorization;
+            const user = await User.findOne({token: authHeader});
+
+            if(user){
+                await User.findByIdAndRemove(user);
+
+                return res.send({message: 'Successfully deleted'});
+            }else{
+                return res.status(400).send({error: 'Token not provided'});
+            }
+    
+        }catch{
+            return res.status(400).send({error: 'Failed deleting user'});
+        }
     }
+
 };
