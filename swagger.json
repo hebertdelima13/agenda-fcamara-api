@@ -128,10 +128,52 @@
                             "application/json": {
                                 "schema": {
                                     "type": "object",
-                                    "$ref": "#/components/schemas/UserGet"
+                                    "$ref": "#/components/schemas/UserInfo"
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Editar o usuário",
+                "description": "Essa rota será responsável por editar o usuário",
+                "tags": ["User"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserEdit"
+                            },
+                            "examples": {
+                                "user": {
+                                    "value": {
+                                        "token": "$2b$10$AA/01qQptcqwAppcaBHQ0eEbEmXL7dXpnGqSuzo5Zd5WzYtb9DieW",
+                                        "name": "John Smith",
+                                        "email": "johnsmith@host.com",
+                                        "password": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [{
+                    "name": "token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses" :{
+                    "400": {
+                        "description": "E-mail já existe!"
+                    },
+                    "401": {
+                        "description": "Dados inválido!"
+                    },
+                    "200": {
+                        "description": "Dados alterados com sucesso!"                        
                     }
                 }
             },
@@ -148,14 +190,184 @@
                 }],
                 "responses" :{
                     "400": {
-                        "description": "Successfully deleted"
+                        "description": "Token not provided"
+                    },
+                    "401": {
+                        "description": "Failed deleting user"
                     },
                     "200": {
-                        "description": "OK"                        
+                        "description": "Successfully deleted"                        
                     }
                 }
             }
-        }        
+        },
+        "/appoint": {
+            "post": {
+                "summary": "Criar agendamento",
+                "description": "Essa rota será responsável por criar agendamento do usuário",
+                "tags": ["Appoint"],
+                "security": [],
+                "parameters": [{
+                    "name": "token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointCreate"
+                            },
+                            "examples": {
+                                "appoint": {
+                                    "value": {
+                                        "unit": "São Paulo",
+                                        "ap_date": "2021-09-30"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses" :{
+                    "400": {
+                        "description": "Token not provided"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/AppointCreate"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Lista os agendamentos do usário",
+                "description": "Essa rota será responsável por listar os agendamentos do usuário",
+                "tags": ["Appoint"],
+                "security": [],
+                "parameters": [{
+                    "name": "token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],                
+                "responses" :{
+                    "400": {
+                        "description": "Token not provided"
+                    },
+                    "401": {
+                        "description": "Failed loading appointment"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/AppointInfo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/appoint/{id}": {
+            "put": {
+                "summary": "Editar agendamento",
+                "description": "Essa rota será responsável por editar agendamento do usuário",
+                "tags": ["Appoint"],
+                "security": [],
+                "parameters": [{
+                    "name": "token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AppointEdit"
+                            },
+                            "examples": {
+                                "appoint": {
+                                    "value": {
+                                        "unit": "São Paulo",
+                                        "ap_date": "2021-09-30"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses" :{
+                    "400": {
+                        "description": "Token not provided"
+                    },
+                    "401": {
+                        "description": "Failed updating appointment"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/AppointEdit"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleta os agendamentos do usário",
+                "description": "Essa rota será responsável por deletar os agendamentos do usuário",
+                "tags": ["Appoint"],
+                "security": [],
+                "parameters": [{
+                    "name": "token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],   
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/appointId"
+                            },
+                            "examples": {
+                                "appointId": {
+                                    "value": {
+                                        "id": "613f3f9114b13861e4e6138a"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },             
+                "responses" :{
+                    "400": {
+                        "description": "Token not provided"
+                    },
+                    "401": {
+                        "description": "Failed deleting appointment"
+                    },
+                    "200": {
+                        "description": "Successfully deleted"
+                    }
+                }
+            }
+        }           
     },
 
     "components": {
@@ -185,13 +397,107 @@
                     }
                 }
             },
-            "UserGet": {
+            "UserInfo": {
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string"
                     },
                     "email": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserEdit": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "AppointCreate": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "string"
+                    },
+                    "unit": {
+                        "type": "string"
+                    },
+                    "ap_date": {
+                        "type": "string"
+                    },
+                    "_id": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "__v": {
+                        "type": "number"
+                    }
+                }
+            },
+            "AppointInfo": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string"
+                    },
+                    "unit": {
+                        "type": "string"
+                    },
+                    "ap_date": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "__v": {
+                        "type": "number"
+                    }
+                }
+            },
+            "AppointEdit": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string"
+                    },
+                    "unit": {
+                        "type": "string"
+                    },
+                    "ap_date": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "__v": {
+                        "type": "number"
+                    }
+                }
+            },
+            "appointId": {
+                "type": "object",
+                "properties": {
+                    "_id": {
                         "type": "string"
                     }
                 }
