@@ -134,6 +134,26 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "summary": "Deletar o usuário",
+                "description": "Essa rota será responsável por deletar o usuário",
+                "tags": ["User"],
+                "security": [],
+                "parameters": [{
+                    "name": "token",
+                    "in": "header",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses" :{
+                    "400": {
+                        "description": "Successfully deleted"
+                    },
+                    "200": {
+                        "description": "OK"                        
+                    }
+                }
             }
         }        
     },
