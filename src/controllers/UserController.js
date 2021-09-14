@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const { validationResult, matchedData } = require('express-validator');
 const { update } = require('../models/User');
 const User = require('../models/User');
+const Appoint = require('../models/Appointment');
 
 module.exports = {
     info: async (req, res) => {
@@ -52,23 +53,24 @@ module.exports = {
                 updates.passwordHash = await bcrypt.hash(data.password, 10);
             }
 
-            const nuser = await User.findOneAndUpdate({token: token}, {$set: updates}, { new: true}); //data.token   
-            //const appoint = await Appoint.findByIdAndUpdate(req.params.appointId, { unit, ap_date}, { new: true});
+            const nuser = await User.findOneAndUpdate({token: token}, {$set: updates}, { new: true}); 
 
             await nuser.save();
         
             return res.send({ nuser });
 
-            //return res.status(200).send({message: 'Dados alterados com sucesso!'});
         }
     },
 
     delete: async (req, res) => {
         try{
-            const authHeader = req.headers.authorization;
+            const authHeader = req.headers.token;
             const user = await User.findOne({token: authHeader});
 
             if(user){
+                const myquery = {user: user._id};
+                await Appoint.deleteMany(myquery);
+                                
                 await User.findByIdAndRemove(user);
 
                 return res.send({message: 'Successfully deleted'});
