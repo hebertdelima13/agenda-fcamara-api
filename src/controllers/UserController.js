@@ -20,7 +20,7 @@ module.exports = {
     },
 
     editAction: async (req, res) => {
-        let token = req.headers.authorization;
+        let token = req.headers.token;
 
         const user = await User.findOne({token:token});
 
@@ -39,14 +39,20 @@ module.exports = {
                 updates.name = data.name;
             }
 
-            if(data.email) {
+            if(data.email) {    
+                
                 const emailCheck = await User.findOne({email: data.email});
+                /*const email = req.body.email;*/
 
-                if(emailCheck) {
+                if(emailCheck) {             
+                    updates.email = data.email;   
+                } 
+                
+                if (!emailCheck) {
+                    updates.email = data.email; 
+                } else {
                     return res.status(401).json({error: '303', msg: 'E-mail já existe!'});
-                }
-
-                updates.email = data.email;
+                }                
             }
 
             if(data.password) {
