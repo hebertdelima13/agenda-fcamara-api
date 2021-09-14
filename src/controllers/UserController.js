@@ -24,35 +24,23 @@ module.exports = {
 
         const user = await User.findOne({token:token});
 
-        const errors = validationResult(req);
-
-        if(!errors.isEmpty()) {
-            return res.status(400).json({error: '300', msg: 'Dados inválido!'});
-        }
-
+ //       const errors = validationResult(req);
+      
         if(user){
-            const data = matchedData(req);        
+            const data = matchedData(req);
 
             let updates = {};
 
             if(data.name) {
                 updates.name = data.name;
-            }
+            }     
 
-            if(data.email) {    
+            if(data.email) {
+                if(data.email.indexOf('@')>-1){
+                  
+                    updates.email = data.email;
+                }
                 
-                const emailCheck = await User.findOne({email: data.email});
-                /*const email = req.body.email;*/
-
-                if(emailCheck) {             
-                    updates.email = data.email;   
-                } 
-                
-                if (!emailCheck) {
-                    updates.email = data.email; 
-                } else if (emailCheck) {
-                    return res.status(401).json({error: '303', msg: 'E-mail já existe!'});
-                }                
             }
 
             if(data.password) {

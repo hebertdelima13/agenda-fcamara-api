@@ -18,7 +18,7 @@ module.exports = {
         email: {
             optional: true,       
             isEmail: true,
-            normalizeEmail: true,
+   //         normalizeEmail: true,
             errorMessage: 'E-mail inválido!'
         },
 
