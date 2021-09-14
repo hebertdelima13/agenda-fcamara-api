@@ -23,22 +23,33 @@ module.exports = {
         let token = req.headers.token;
 
         const user = await User.findOne({token:token});
-
- //       const errors = validationResult(req);
+        
+        const errors = validationResult(req);
       
         if(user){
             const data = matchedData(req);
+            const euser = await User.findOne({email: data.email});
 
             let updates = {};
 
             if(data.name) {
                 updates.name = data.name;
             }     
-
-            if(data.email) {
-                if(data.email.indexOf('@')>-1){
+            
+            if(req.body.email) {
+                if(req.body.email.indexOf('@') > -1){  
                   
-                    updates.email = data.email;
+                    if(euser && euser._id !== user._id){
+                      
+                      return res.send({error: 'Email já em uso!'});
+
+                    } else {
+                       
+                        updates.email = data.email;
+                    }
+                }else {
+
+                    return res.send({error: 'Email inválido!'});
                 }
                 
             }
