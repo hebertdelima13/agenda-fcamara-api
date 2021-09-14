@@ -50,7 +50,7 @@ module.exports = {
                 
                 if (!emailCheck) {
                     updates.email = data.email; 
-                } else {
+                } else if (emailCheck) {
                     return res.status(401).json({error: '303', msg: 'E-mail já existe!'});
                 }                
             }
