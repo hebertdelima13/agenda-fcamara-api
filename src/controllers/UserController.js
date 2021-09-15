@@ -39,12 +39,12 @@ module.exports = {
             if(req.body.email) {
                 if(req.body.email.indexOf('@') > -1){  
                   
-                    if(euser && euser._id !== user._id){
-                      
+                    if(euser &&  req.body.email != user.email){  
+                       
                       return res.send({error: 'Email já em uso!'});
 
                     } else {
-                       
+                     
                         updates.email = data.email;
                     }
                 }else {
