@@ -10,7 +10,7 @@ module.exports = {
         const errors = validationResult(req);
 
         if(!errors.isEmpty()) {
-            return res.status(400).json({error: '300', msg: 'Dados inválido!'});
+            return res.status(400).json({msg: 'Dados inválido!'});
         }
 
         const data = matchedData(req);
@@ -20,7 +20,7 @@ module.exports = {
         const user = await User.findOne({email: data.email});
 
         if(!user) {
-            return res.status(401).json({error: '301', msg: 'E-mail ou senha inválido!'});
+            return res.status(401).json({msg: 'E-mail ou senha inválido!'});
         }
 
         // Validando a senha
@@ -28,7 +28,7 @@ module.exports = {
         const match = await bcrypt.compare(data.password, user.passwordHash);
 
         if(!match) {
-            return res.status(401).json({error: '302', msg: 'E-mail ou senha inválido!'});
+            return res.status(401).json({msg: 'E-mail ou senha inválido!'});
         }
 
         const payload = (Date.now() + Math.random()).toString();
@@ -45,7 +45,7 @@ module.exports = {
         const errors = validationResult(req);
 
         if(!errors.isEmpty()) {
-            return res.status(400).json({error: '300', msg: 'Dados inválido!'});
+            return res.status(400).json({msg: 'Dados inválido!'});
         }
 
         const data = matchedData(req);
@@ -57,7 +57,7 @@ module.exports = {
         });
 
         if (user) {
-            return res.status(409).json({error: '303', msg: 'E-mail já existe!'});
+            return res.status(409).json({msg: 'E-mail já existe!'});
         }
 
         const passwordHash = await bcrypt.hash(data.password, 10);
