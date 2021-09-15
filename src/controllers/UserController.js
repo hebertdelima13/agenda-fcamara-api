@@ -41,7 +41,7 @@ module.exports = {
                   
                     if(euser &&  req.body.email != user.email){  
                        
-                      return res.send({error: 'Email já em uso!'});
+                      return res.status(409).send({error: 'E-mail já existe!'});
 
                     } else {
                      
@@ -49,7 +49,7 @@ module.exports = {
                     }
                 }else {
 
-                    return res.send({error: 'Email inválido!'});
+                    return res.status(400).send({error: 'Email inválido!'});
                 }
                 
             }

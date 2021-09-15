@@ -163,7 +163,7 @@
                     }
                 },
                 "responses" :{
-                    "401": {
+                    "409": {
                         "description": "E-mail já existe!"
                     },
                     "400": {
