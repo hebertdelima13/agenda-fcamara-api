@@ -36,6 +36,12 @@ npm install
 npm run start
 ```
 
+## Swagger API
+
+```sh
+http://localhost:5000/api-docs
+```
+
 ## Authors
 
 👤 **Gustavo Deckers, Hebert Fernandes**
