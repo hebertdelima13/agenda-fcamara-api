@@ -1,4 +1,4 @@
-<h1 align="center">API - Sistema Web para Agendamento de Data para Trabalho Presencial na Empresa FCamara 👋</h1>
+<h1 align="center">API - Sistema web para agendamento de data para trabalho presencial na empresa FCamara 👋</h1>
 <p align="center">
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
@@ -39,3 +39,7 @@ npm run start
 ## Authors
 
 👤 **Gustavo Deckers, Hebert Fernandes**
+
+## Front-End do projeto
+
+<a href="https://github.com/AndeCardoso/fcamara-agenda">Github do projeto</a>
