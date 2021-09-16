@@ -1,6 +1,20 @@
 users 
-- _id
-- name
-- email
-- passwordHash
-- token
+- _id : String
+- name : String
+- email : String
+- passwordHash : String
+- token : String
+
+units
+-_id : String
+- name : String
+- capacity : Number (Int)
+- released : Number (Int)
+- createdAt : Date
+
+appointment
+- _id : String
+- user : User
+- unit : String
+- ap_date : String
+- createdAt : Date

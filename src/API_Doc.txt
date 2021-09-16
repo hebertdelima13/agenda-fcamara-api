@@ -1,0 +1,160 @@
+//Unidade
+
+/unit (POST) - cria unidade
+entrada:
+{
+    "name": "Santos",
+    "capacity": 100,
+    "released": 40
+}
+resposta:
+{
+    "unit": {
+        "name": "Santos",
+        "capacity": 100,
+        "released": 40,
+        "_id": "613b9507d0886ed62880aa98",
+        "createdAt": "2021-09-10T17:25:27.947Z",
+        "__v": 0
+    }
+}
+
+/unit (GET) - lista as unidades
+resposta:
+{
+    "units": [
+        {
+            "_id": "613b62e85d42ac0f3e6c4d31",
+            "name": "São Paulo",
+            "capacity": 600,
+            "released": 5,
+            "createdAt": "2021-09-10T13:51:36.837Z",
+            "__v": 0
+        },
+        {
+            "_id": "613b9507d0886ed62880aa98",
+            "name": "Santos",
+            "capacity": 100,
+            "released": 40,
+            "createdAt": "2021-09-10T17:25:27.947Z",
+            "__v": 0
+        }
+    ]
+}
+
+/unit/id_da_unidade (PUT) - altera os dados da unidade
+entrada:
+{
+    "name": "São Paulo",
+    "capacity": 600,
+    "released": 5
+}
+resposta:
+{
+    "unit": {
+        "_id": "613b62e85d42ac0f3e6c4d31",
+        "name": "São Paulo",
+        "capacity": 600,
+        "released": 5,
+        "createdAt": "2021-09-10T13:51:36.837Z",
+        "__v": 0
+    }
+}
+/unit/id_da_unidade (DELETE) - remove a unidade
+** Precisa apenas do id_da_unidade na requisição
+retorno:
+{
+    "message": "Successfully deleted"
+}
+_____________________________________________________________
+//Agendamento
+
+/appoint (POST) - cria agendamento
+entrada:
+** É preciso enviar o token do usuario no header no parametro Authorization
+{
+    "unit":"São Paulo",
+    "ap_date":"2021-09-11"
+}
+resposta:
+{
+    "appoint": {
+        "user": "613374e8a2766a6fa7002092",
+        "unit": "São Paulo",
+        "ap_date": "2021-09-11T00:00:00.000Z",
+        "_id": "613bae0a4c9fe7b6b5c2ac5d",
+        "createdAt": "2021-09-10T19:12:10.454Z",
+        "__v": 0
+    }
+}
+
+/appoint (GET) - lista os agendamentos do usuario naquela unidade
+entrada:
+** É preciso enviar o token do usuario no header no parametro Authorization
+***Não precisa de nada no corpo da requisição, ele lista todos os agendamentos do usuario.
+resposta:
+{
+    "appoints": [
+        {
+            "_id": "613bae0a4c9fe7b6b5c2ac5d",
+            "user": "613374e8a2766a6fa7002092",
+            "unit": "São Paulo",
+            "ap_date": "2021-09-11T00:00:00.000Z",
+            "createdAt": "2021-09-10T19:12:10.454Z",
+            "__v": 0
+        },
+        {
+            "_id": "613beea8aaa22fc87a946026",
+            "user": "613374e8a2766a6fa7002092",
+            "unit": "São Paulo",
+            "ap_date": "2021-09-12T00:00:00.000Z",
+            "createdAt": "2021-09-10T23:47:52.698Z",
+            "__v": 0
+        },
+        {
+            "_id": "613beeadaaa22fc87a94602b",
+            "user": "613374e8a2766a6fa7002092",
+            "unit": "São Paulo",
+            "ap_date": "2021-09-13T00:00:00.000Z",
+            "createdAt": "2021-09-10T23:47:57.877Z",
+            "__v": 0
+        },
+        {
+            "_id": "613beeb1aaa22fc87a946030",
+            "user": "613374e8a2766a6fa7002092",
+            "unit": "São Paulo",
+            "ap_date": "2021-09-14T00:00:00.000Z",
+            "createdAt": "2021-09-10T23:48:01.955Z",
+            "__v": 0
+        }
+    ]
+}
+
+/appoint/id_do_agendamento (PUT) - altera os dados do agendamento
+entrada:
+** É preciso enviar o token do usuario no header no parametro Authorization
+{
+    "unit":"São Paulo",
+    "ap_date":"2021-09-12"
+}
+resposta:
+{
+    "appoint": {
+        "_id": "613bad714c9fe7b6b5c2ac4e",
+        "user": "613b77335de370cd4e7778df",
+        "unit": "São Paulo",
+        "ap_date": "2021-09-12T00:00:00.000Z",
+        "createdAt": "2021-09-10T19:09:37.236Z",
+        "__v": 0
+    }
+}
+/appoint/id_do_agendamento (DELETE) - remove o agendamento
+** Precisa apenas do id_da_unidade na requisição
+** É preciso enviar o token do usuario no header no parametro Authorization
+retorno:
+{
+    "message": "Successfully deleted"
+}
+
+
+

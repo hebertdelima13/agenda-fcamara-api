@@ -18,9 +18,9 @@ module.exports = {
 
         password: {
             isLength: {
-                options: { min: 2 }
+                options: { min: 6 }
             },
-            errorMessage: 'Senha precisa ter pelo menos 2 caracteres!'
+            errorMessage: 'Senha precisa ter pelo menos 6 caracteres!'
         }
     }),
 
@@ -34,10 +34,9 @@ module.exports = {
 
         password: {
             isLength: {
-                options: { min: 2 }
+                options: { min: 6 }
             },
-            errorMessage: 'Senha precisa ter pelo menos 2 caracteres!'
+            errorMessage: 'Senha precisa ter pelo menos 6 caracteres!',
         }
-
     })
 };

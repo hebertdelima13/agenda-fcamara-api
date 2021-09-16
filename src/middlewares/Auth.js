@@ -3,9 +3,10 @@ const User = require('../models/User');
 module.exports = {
     private: async (req, res, next) => {
 
-        if(!req.query.token && !req.body.token) {
-            res.json({notallowed: true});
-            return;
+        
+
+        if(!req.query.token && !req.body.token && !req.headers.token) {
+            return res.status(400).send({error: 'Token inválido'});
         }
 
         let token = '';
@@ -18,16 +19,18 @@ module.exports = {
             token = req.body.token;
         }
 
-        if(token == '') {
-            res.json({notallowed: true});
-            return;
+        if(req.headers.token) {
+            token = req.headers.token;
         }
 
-        const user = await User.findOne({token});
+        if(token == '') {
+            return res.status(400).send({error: 'Token inválido'});
+        }
+
+        const user = await User.findOne({token:token});
 
         if(!user) {
-            res.json({notallowed: true});
-            return;
+            return res.status(400).send({error: 'Token inválido'});
         }
 
         next();
