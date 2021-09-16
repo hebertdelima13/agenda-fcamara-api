@@ -44,7 +44,7 @@ http://localhost:5000/api-docs
 
 ## Authors
 
-👤 **Gustavo Deckers {@gdeckers}, Hebert Fernandes {@hebertdelima13}**
+👤 <a href="https://github.com/gdeckers">**Gustavo Deckers**</a> | <a href="https://www.linkedin.com/in/hebert-fernandes-de-lima-8b8913210/">**Hebert Fernandes**</a>
 
 ## Front-End do projeto
 
